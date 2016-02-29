@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default navbar-red">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-5" aria-expanded="false">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            </button>
+            <span class="navbar-brand app-name">BeautyShow</span>
+
+            <p class="navbar-text navbar-right navbar-link" id="commissioner_name"></p>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-5">
+            <p class="navbar-text navbar-right"><a href="#" onclick="to_index()" class="navbar-link">我的首页</a></p>
+            <p class="navbar-text navbar-right"><a href="#" onclick="to_shop_list()" class="navbar-link">店铺列表</a></p>
+            <p class="navbar-text navbar-right"><a href="#" onclick="to_new_shop()" class="navbar-link">添加店铺</a></p>
+            <p class="navbar-text navbar-right"><a href="#" onclick="to_new_user()" class="navbar-link">添加用户</a></p>
+            <p class="navbar-text navbar-right"><a href="#" onclick="to_user_list()" class="navbar-link">我的用户</a></p>
+            <p class="navbar-text navbar-right"><a href="#" onclick="login_out()" class="navbar-link" id="login_out">退出登录</a></p>
+        </div>
+    </div>
+</nav>
+<script>
+    function to_new_shop() {
+         window.location.href = base_url + "shop/new.html";
+    }
+    function login_out() {
+        localStorage.removeItem("login_info");
+        localStorage.removeItem("src");
+        window.location.href = base_url + "login.html"
+    }
+    function to_shop_list() {
+        window.location.href = base_url + "shop/list.html";
+    }
+    function to_new_user() {
+        window.location.href = base_url + "user/new.html";
+    }
+    function to_user_list() {
+        window.location.href = base_url + "user/list.html";
+    }
+    function to_index() {
+        window.location.href = base_url + "index.html";
+    }
+</script>

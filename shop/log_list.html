@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/athena.js"></script>
+    <script src="../bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <link href="../bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+</head>
+<body>
+<div id="athena-menu"></div>
+<div id="athena-body">
+    <div class="shop-name"></div>
+    <div class="new-log"><h3><span class="glyphicon glyphicon-plus" id="add_log_btn" aria-hidden="true"></span></h3>
+    </div>
+    <div class="athena-table">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th width="30%">日期</th>
+                <th>详情</th>
+                <th width="20%">录入人员</th>
+            </tr>
+            </thead>
+            <tbody id="log_list">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <div class='error-message'></div>
+        <div class="col-sm-offset-2 col-sm-9">
+            <button type="submit" class="btn btn-default btn-block" id="next_page_btn">下一页</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#athena-menu").load(base_url + "menu.html");
+        id = getParameterByName("id");
+        shop_name = getParameterByName("shop_name");
+        var current_page = 1;
+        if (!id || id == 'null') {
+            $(".error-message").html("参数传递错误!");
+        } else {
+            $(".shop-name").append($("<h2>" + shop_name + "</h2>"))
+            log_list(id, current_page);
+        }
+        $("#add_log_btn").click(function () {
+            window.location.href = base_url + "shop/new_log.html?id=" + id + "&shop_name=" + shop_name;
+        })
+        $("#next_page_btn").click(function () {
+            current_page++;
+            log_list(id, current_page);
+        })
+    });
+    function log_list(id, current_page) {
+        $.ajax({
+            url: api_base_url + "shop_all_promotion_logs",
+            data: {shop_id: id, current_page: current_page, page_size: 10},
+            dataType: 'jsonp',
+            async: false,
+            success: function (data) {
+                if (data["status"] == "SUCCESS") {
+                    if (data['data'].length == 10)
+                        $("#next_page_btn").removeClass("hide");
+                    else
+                        $("#next_page_btn").addClass("hide");
+                    render_log_list(data['data']);
+                } else {
+                    $(".error-message").html(data["message"]);
+                }
+            },
+            error: function () {
+                $(".error-message").html("出错了,稍后请尝试!");
+                return
+            }
+        });
+    }
+
+    function render_log_list(log_list) {
+        $.each(log_list, function (index, log) {
+            var log = "<tr><td scope='row'>" +
+                    log['created_at'] +
+                    "</td><td>" +
+                    log['content'] +
+                    "</td><td>" +
+                    log['commissioner']['name'] +
+                    "</td></tr>"
+            $("#log_list").append(log);
+        })
+    }
+</script>
+</body>
+</html>

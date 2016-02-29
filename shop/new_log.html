@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/athena.js"></script>
+    <script src="../bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <link href="../bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+</head>
+<body>
+<div id="athena-menu"></div>
+<div id="athena-body">
+    <div class="form-horizontal" id="edit-shop-form">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">店铺</label>
+
+            <div class="col-sm-9">
+                <input type="text" class="form-control" disabled id="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="content" class="col-sm-2 control-label">详情</label>
+
+            <div class="col-sm-9">
+                <textarea class="form-control" rows="5" id="content" placeholder="添加店铺推广记录"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class='error-message'></div>
+            <div class="col-sm-offset-2 col-sm-9">
+                <button type="submit" id="add_log_btn" class="btn btn-default btn-block">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#athena-menu").load(base_url + "menu.html");
+        id = getParameterByName("id");
+        shop_name = getParameterByName("shop_name");
+        $("#name").val(shop_name);
+        $("#add_log_btn").click(function () {
+            content = $("#content").val().trim();
+            if (!content) {
+                $(".error-message").html("日志不能为空.");
+            } else {
+                add_log(id, content);
+            }
+        })
+    });
+    function add_log(id, content) {
+        args = {shop_id: id, content: content, c_id: login_info.c_id}
+        var posting = $.post(api_base_url + "add_shop_promotion_log", args);
+        posting.done(function (data) {
+            if (data['status'] == "SUCCESS") {
+                window.location.href = base_url + "shop/log_list.html?id=" + id + "&shop_name=" + $("#name").val();
+            } else {
+                $(".error-message").html(data['message']);
+            }
+        });
+    }
+</script>
+</body>
+</html>

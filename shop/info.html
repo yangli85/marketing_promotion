@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/athena.js"></script>
+    <script src="../bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=tGFcvFwgMbEkbfUTUdsWBtnW"></script>
+    <link href="../bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+</head>
+<body>
+<div id="athena-menu"></div>
+<div id="athena-body">
+    <div class='error-message'></div>
+    <div class="form-horizontal" id="edit-shop-form">
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">地址</label>
+
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="address" placeholder="所在位置">
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longtitude">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label"></label>
+
+            <div class="col-sm-9">
+                <div id="l-map"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">名称</label>
+
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="name" placeholder="店铺名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="scale" class="col-sm-2 control-label">规模</label>
+
+            <div class="col-sm-9">
+                <select class="form-control" id="scale">
+                    <option value="1人">1人</option>
+                    <option value="2人">2人</option>
+                    <option value="3人">3人</option>
+                    <option value="4人">4人</option>
+                    <option value="5人">5人</option>
+                    <option value="6人">6人</option>
+                    <option value="7人">7人</option>
+                    <option value="8人">8人</option>
+                    <option value="9人">9人</option>
+                    <option value="10人">10人</option>
+                    <option value="10人以上">10人以上</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="catogery" class="col-sm-2 control-label">类别</label>
+
+            <div class="col-sm-9">
+                <select class="form-control" id="catogery">
+                    <option value="街边店">街边店</option>
+                    <option value="写字楼">写字楼</option>
+                    <option value="商场">商场</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">详情</label>
+
+            <div class="col-sm-9">
+                <textarea class="form-control" id="desc" rows="3" placeholder="Textarea"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">照片</label>
+
+            <div class="col-sm-9" id="upload-img">
+            </div>
+        </div>
+        <div class="form-group athena-submit hide">
+            <div class="col-sm-offset-2 col-sm-9">
+                <button type="submit" class="btn btn-default btn-block" id="update_shop_btn">提交</button>
+            </div>
+        </div>
+        <div class="form-group athena-log">
+            <div class="col-sm-offset-2 col-sm-9">
+                <button class="btn btn-default btn-block" id="query_logs_btn">查看地推记录</button>
+            </div>
+        </div>
+        <div class="form-group athena-delete">
+            <div class="col-sm-offset-2 col-sm-9">
+                <button class="btn btn-warning btn-block" id="shop_del_btn">删除</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#athena-menu").load(base_url + "menu.html");
+        id = getParameterByName("id");
+        if (!id || id == 'null') {
+            $(".error-message").html("参数传递错误!");
+        } else {
+            shop_info(id);
+        }
+        $(".form-control").prop("disabled", true);
+        $("#shop_del_btn").click(function () {
+            delete_shop(id);
+        })
+        $("#query_logs_btn").click(function () {
+            window.location.href = base_url + "shop/log_list.html?id=" + id + "&shop_name=" + $("#name").val();
+        })
+        // 初始化地图,设置城市和地图级别。
+    });
+
+    function map_show(longtitude, latitude) {
+        var map = new BMap.Map("l-map");
+        map.enableScrollWheelZoom(true);
+        map.clearOverlays();
+        var new_point = new BMap.Point(longtitude, latitude);
+        map.centerAndZoom(new_point, 15);
+        var marker = new BMap.Marker(new_point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.setCenter(new_point);
+    }
+
+    function delete_shop(id) {
+        var posting = $.post(api_base_url + "delete_shop", {shop_id: id, c_id: login_info.c_id});
+        posting.done(function (data) {
+            if (data['status'] == "SUCCESS") {
+                window.location.href = "./success.html";
+            } else {
+                $(".error-message").html(data['message']);
+            }
+        });
+    }
+
+    function shop_info(id) {
+        $.ajax({
+            url: api_base_url + "shop_details",
+            data: {id: id},
+            dataType: 'jsonp',
+            async: false,
+            success: function (data) {
+                if (data["status"] == "SUCCESS") {
+                    render_shop_info(data['data']);
+                } else {
+                    $(".error-message").html(data["message"]);
+                }
+            },
+            error: function () {
+                $(".error-message").html("出错了,稍后请尝试!");
+                return
+            }
+        });
+    }
+
+    function render_shop_info(shop) {
+        $("#name").val(shop['name']);
+        $("#address").val(shop['address']);
+        $("#latitude").val(shop['latitude']);
+        $("#longtitude").val(shop['longtitude']);
+        $("#desc").val(shop['desc']);
+        $("#scale").val(shop['scale']);
+        $("#category").val(shop['category']);
+        $.each(shop['images'], function (index, image) {
+            var image = $("<div class='uploaded-img'><img class='img-rounded' src='../" +
+                    image.url +
+                    "'></img></div>");
+            $("#upload-img").prepend(image);
+        })
+        map_show(shop['longtitude'], shop['latitude']);
+    }
+</script>
+</body>
+</html>
