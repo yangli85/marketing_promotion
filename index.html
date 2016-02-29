@@ -42,7 +42,9 @@
                 "<p>已经有<span style='font-size: 30px; color: #ad0358;'>" +
                 data['designer_count'] +
                 "</span>个人设计师因为你开通了我们的会员!</p>" +
-                "<p><image class='img-responsive' src='./images/1.png'></image></p></div>")
+                "<p><image class='img-responsive' src=" +
+                image_base_url + data['code_image'] +
+                "></image></p></div>")
     }
     function render_details(c_id) {
         $.ajax({
