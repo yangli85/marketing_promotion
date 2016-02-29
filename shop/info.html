@@ -137,7 +137,7 @@
         var posting = $.post(api_base_url + "delete_shop", {shop_id: id, c_id: login_info.c_id});
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
-                window.location.href = "./success.html";
+                window.location.href =  base_url + "success.html";
             } else {
                 $(".error-message").html(data['message']);
             }
@@ -173,8 +173,8 @@
         $("#scale").val(shop['scale']);
         $("#category").val(shop['category']);
         $.each(shop['images'], function (index, image) {
-            var image = $("<div class='uploaded-img'><img class='img-rounded' src='../" +
-                    image.url +
+            var image = $("<div class='uploaded-img'><img class='img-rounded' src='" +
+                    base_url + image.url +
                     "'></img></div>");
             $("#upload-img").prepend(image);
         })

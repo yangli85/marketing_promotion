@@ -1,6 +1,7 @@
 //encoding:utf - 8
-base_url = "http://localhost:63342/marketing-promotion/";
-api_base_url = "http://localhost:63342/marketing-promotion/";
+base_url = "http://localhost:80/marketing_promotion/";
+api_base_url = "http://localhost:8080/";
+image_base_url = "http://localhost:80/";
 login_info = JSON.parse(localStorage.getItem("login_info"));
 window.onload = function () {
     if (login_info_expired()) {
