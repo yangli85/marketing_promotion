@@ -175,7 +175,7 @@
         $("#category").val(shop['category']);
         $.each(shop['images'], function (index, image) {
             var image = $("<div class='uploaded-img'><img class='img-rounded' src='" +
-                    base_url + image.url +
+                    image_base_url + image.url +
                     "'></img></div>");
             $("#upload-img").prepend(image);
         })
