@@ -66,11 +66,11 @@
 
     function user_list(current_page, page_size, user_type) {
         if (user_type.trim() == "designer")
-            url = 'http://localhost:8080/designers';
+            url = api_base_url + "designers";
         else if(user_type.trim() =='customer')
-            url = 'http://localhost:8080/users';
+            url = api_base_url + 'users';
         else
-            url = 'http://localhost:8080/promotion_logs';
+            url = api_base_url + 'promotion_logs';
         $.ajax({
             url: url,
             data: {c_id: login_info.c_id, current_page: current_page, page_size: page_size},
