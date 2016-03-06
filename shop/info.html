@@ -19,11 +19,10 @@
     <div class="form-horizontal" id="edit-shop-form">
         <div class="form-group">
             <label for="address" class="col-sm-2 control-label">地址</label>
-
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="address" placeholder="所在位置">
                 <input type="hidden" id="latitude">
-                <input type="hidden" id="longtitude">
+                <input type="hidden" id="longitude">
             </div>
         </div>
         <div class="form-group">
@@ -123,11 +122,11 @@
         // 初始化地图,设置城市和地图级别。
     });
 
-    function map_show(longtitude, latitude) {
+    function map_show(longitude, latitude) {
         var map = new BMap.Map("l-map");
         map.enableScrollWheelZoom(true);
         map.clearOverlays();
-        var new_point = new BMap.Point(longtitude, latitude);
+        var new_point = new BMap.Point(longitude, latitude);
         map.centerAndZoom(new_point, 15);
         var marker = new BMap.Marker(new_point);  // 创建标注
         map.addOverlay(marker);              // 将标注添加到地图中
@@ -169,7 +168,7 @@
         $("#name").val(shop['name']);
         $("#address").val(shop['address']);
         $("#latitude").val(shop['latitude']);
-        $("#longtitude").val(shop['longtitude']);
+        $("#longitude").val(shop['longitude']);
         $("#desc").val(shop['desc']);
         $("#scale").val(shop['scale']);
         $("#category").val(shop['category']);
@@ -179,7 +178,7 @@
                     "'></img></div>");
             $("#upload-img").prepend(image);
         })
-        map_show(shop['longtitude'], shop['latitude']);
+        map_show(shop['longitude'], shop['latitude']);
     }
 </script>
 </body>

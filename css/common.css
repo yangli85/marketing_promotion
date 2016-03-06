@@ -91,6 +91,11 @@
 #athena-body .athena-table {
     margin-top: 20px;
     white-space: normal;
+    width:100%;
+}
+
+#athena-body .athena-table td{
+    word-break:break-all;
 }
 
 #athena-body .commend-result {

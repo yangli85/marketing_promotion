@@ -27,7 +27,7 @@
         $("#athena-menu").load("./menu.html")
     });
     function back(){
-        window.location.href = localStorage.getItem("src") || './login.html';
+        history.go(-1);
     }
 </script>
 </html>

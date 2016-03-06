@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>登录</title>
     <script type="text/javascript" src="../js/config.js"></script>
     <script type="text/javascript" src="../js/jquery.js"></script>
@@ -22,7 +23,7 @@
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="address" placeholder="所在位置">
                 <input type="hidden" id="latitude">
-                <input type="hidden" id="longtitude">
+                <input type="hidden" id="longitude">
             </div>
         </div>
         <div class="form-group commend-result">
@@ -91,6 +92,7 @@
                     <input type="file" class="hide" name="file[]" multiple accept="image/*"
                            id="img-upload-input">
                     <span class="glyphicon glyphicon-plus" id="img-upload-btn" aria-hidden="true"></span>
+
                     <div class="container">
                     </div>
                 </div>
@@ -109,19 +111,23 @@
     $(document).ready(function () {
         var temp_image_paths = [];
         var file_num = 0;
+        var map = new BMap.Map("l-map");
+        map.enableScrollWheelZoom(true);
+        map.clearOverlays();
+        map.centerAndZoom("西安", 12);                   // 初始化地图,设置城市和地图级别。
         $("#athena-menu").load(base_url + "menu.html");
         $("#new_shop_btn").click(function () {
             name = $("#name").val().trim();
             address = $("#address").val().trim();
-            longtitude = $("#longtitude").val().trim();
+            longitude = $("#longitude").val().trim();
             latitude = $("#latitude").val().trim();
             scale = $("#scale").val().trim();
             category = $("#category").val().trim();
             desc = $("#desc").val().trim();
-            if(!name ||!address){
+            if (!name || !address) {
                 $(".error-message").html("店铺名称和地址不能为空.");
-            }else{
-                new_shop(name, address, longtitude, latitude, scale, category, desc, temp_image_paths);
+            } else {
+                new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths);
             }
         });
         $("#img-upload-btn").click(function () {
@@ -133,105 +139,15 @@
             if (inputFiles == undefined || inputFiles.length == 0) return;
             var inputFile = inputFiles[0];
             objUrl = createObject(inputFile)
-            render(objUrl, file_num);
+            render(objUrl, file_num, temp_image_paths);
             file_num++;
         })
-
-        function render(src, idnum) {
-            canvas_id = "canvas_" + idnum
-            div_id = "upload-img_" + idnum
-            f_id = 'f_' + idnum;
-            var img_dom = $("<div class='uploaded-img' id='" + div_id + "'><canvas class='img-rounded' id='" + canvas_id + "'></canvas></div>")
-            $("#upload-img").prepend(img_dom)
-            canvas = document.getElementById(canvas_id);
-            $("#" + div_id).dblclick(function () {
-                this.remove();
-                $("#" + f_id).remove();
-
-            });
-            var image = new Image();
-            image.onload = function () {
-                if (image.width > image.height) {
-                    imageWidth = 500;
-                    imageHeight = 500 * (image.height / image.width);
-                }
-                else if (image.width < image.height) {
-                    imageHeight = 500;
-                    imageWidth = 500 * (image.width / image.height);
-                }
-                else {
-                    imageWidth = 500;
-                    imageHeight = 500;
-                }
-                canvas.width = imageWidth;
-                canvas.height = imageHeight;
-                var con = canvas.getContext('2d');
-                con.clearRect(0, 0, canvas.width, canvas.height);
-                con.drawImage(image, 0, 0, imageWidth, imageHeight);
-                base64 = canvas.toDataURL('image/jpeg', 0.5).substr(22);
-                upload_file(base64);
-            }
-            image.src = src
-        }
-
-        function createObject(file) {
-            var url = null;
-            if (window.createObjectURL != undefined) { // basic
-                url = window.createObjectURL(file);
-            } else if (window.URL != undefined) { // mozilla(firefox)
-                url = window.URL.createObjectURL(file);
-            } else if (window.webkitURL != undefined) { // webkit or chrome
-                url = window.webkitURL.createObjectURL(file);
-            }
-            return url;
-        }
-
-        function upload_file(base64) {
-            var posting = $.post(api_base_url + "upload_image", {image_base64: base64});
-            posting.done(function (data) {
-                if (data['status'] == "SUCCESS") {
-                    temp_image_paths[temp_image_paths.length] = data['data']['temp_image_path'];
-                } else {
-                    $(".error-message").html(data['message']);
-                }
-            });
-        }
-
-        function new_shop(name, address, longtitude, latitude, scale, category, desc, temp_image_paths) {
-            var args = {
-                name: name,
-                address: address,
-                longtitude: longtitude,
-                latitude: latitude,
-                scale: scale,
-                category: category,
-                desc: desc,
-                image_paths: temp_image_paths.join(","),
-                c_id: login_info.c_id
-            }
-            var posting = $.post(api_base_url + "register_shop",args);
-            posting.done(function (data) {
-                if (data['status'] == "SUCCESS") {
-                    window.location.href = base_url + "success.html";
-                } else {
-                    $(".error-message").html(data['message']);
-                }
-            });
-        }
-
-
-        var map = new BMap.Map("l-map");
-        map.enableScrollWheelZoom(true);
-        map.clearOverlays();
-        map.centerAndZoom("西安", 12);                   // 初始化地图,设置城市和地图级别。
-
         var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
                 {
                     "input": "address",
                     "location": map
                 }
         );
-
         ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
             var str = "";
             var _value = e.fromitem.value;
@@ -255,26 +171,108 @@
             var _value = e.item.value;
             myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
             $("#commend-address").html = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-            setPlace();
+            setPlace(map, myValue);
         });
-
-        function setPlace() {
-            map.clearOverlays();    //清除地图上所有覆盖物
-            function myFun() {
-                var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
-                $(".athena-map").show();
-                $('#latitude').val(pp.lat);
-                $('#longtitude').val(pp.lng);
-                map.centerAndZoom(pp, 18);
-                map.addOverlay(new BMap.Marker(pp));    //添加标注
-            }
-
-            var local = new BMap.LocalSearch(map, { //智能搜索
-                onSearchComplete: myFun
-            });
-            local.search(myValue);
-        }
     })
+
+    function setPlace(map, myValue) {
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+            $(".athena-map").show();
+            $('#latitude').val(pp.lat);
+            $('#longitude').val(pp.lng);
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+
+    function render(src, idnum, temp_image_paths) {
+        canvas_id = "canvas_" + idnum
+        div_id = "upload-img_" + idnum
+        f_id = 'f_' + idnum;
+        var img_dom = $("<div class='uploaded-img' id='" + div_id + "'><canvas class='img-rounded' id='" + canvas_id + "'></canvas></div>")
+        $("#upload-img").prepend(img_dom)
+        canvas = document.getElementById(canvas_id);
+        $("#" + div_id).dblclick(function () {
+            this.remove();
+            $("#" + f_id).remove();
+
+        });
+        var image = new Image();
+        image.onload = function () {
+            if (image.width > image.height) {
+                imageWidth = 500;
+                imageHeight = 500 * (image.height / image.width);
+            }
+            else if (image.width < image.height) {
+                imageHeight = 500;
+                imageWidth = 500 * (image.width / image.height);
+            }
+            else {
+                imageWidth = 500;
+                imageHeight = 500;
+            }
+            canvas.width = imageWidth;
+            canvas.height = imageHeight;
+            var con = canvas.getContext('2d');
+            con.clearRect(0, 0, canvas.width, canvas.height);
+            con.drawImage(image, 0, 0, imageWidth, imageHeight);
+            base64 = canvas.toDataURL('image/jpeg', 0.5).substr(22);
+            upload_file(base64, temp_image_paths);
+        }
+        image.src = src
+    }
+
+    function createObject(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    function upload_file(base64, temp_image_paths) {
+        var posting = $.post(api_base_url + "upload_image", {image_base64: base64});
+        posting.done(function (data) {
+            if (data['status'] == "SUCCESS") {
+                temp_image_paths[temp_image_paths.length] = data['data']['temp_image_path'];
+            } else {
+                $(".error-message").html(data['message']);
+            }
+        });
+    }
+
+    function new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths) {
+        var args = {
+            name: name,
+            address: address,
+            longitude: longitude,
+            latitude: latitude,
+            scale: scale,
+            category: category,
+            desc: desc,
+            image_paths: temp_image_paths.join(","),
+            c_id: login_info.c_id
+        }
+        var posting = $.post(api_base_url + "register_shop", args);
+        posting.done(function (data) {
+            if (data['status'] == "SUCCESS") {
+                window.location.href = base_url + "success.html";
+            } else {
+                $(".error-message").html(data['message']);
+            }
+        });
+    }
 </script>
 </body>
 </html>
