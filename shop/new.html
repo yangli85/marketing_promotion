@@ -23,6 +23,8 @@
                 <input type="text" class="form-control" id="address" placeholder="所在位置">
                 <input type="hidden" id="latitude">
                 <input type="hidden" id="longitude">
+                <input type="hidden" id="province">
+                <input type="hidden" id="city">
             </div>
         </div>
         <div class="form-group commend-result">
@@ -123,10 +125,12 @@
             scale = $("#scale").val().trim();
             category = $("#category").val().trim();
             desc = $("#desc").val().trim();
+            province = $("#province").val().trim();
+            city = $("#city").val().trim();
             if (!name || !address) {
                 $(".error-message").html("店铺名称和地址不能为空.");
             } else {
-                new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths);
+                new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths, province, city);
             }
         });
         $("#img-upload-btn").click(function () {
@@ -181,6 +185,11 @@
             $(".athena-map").show();
             $('#latitude').val(pp.lat);
             $('#longitude').val(pp.lng);
+            var myGeo = new BMap.Geocoder();
+            myGeo.getLocation(pp, function (result) {
+                $("#province").val(result.addressComponents.province)
+                $("#city").val(result.addressComponents.city)
+            });
             map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
         }
@@ -251,7 +260,7 @@
         });
     }
 
-    function new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths) {
+    function new_shop(name, address, longitude, latitude, scale, category, desc, temp_image_paths, province, city) {
         var args = {
             name: name,
             address: address,
@@ -261,7 +270,9 @@
             category: category,
             desc: desc,
             image_paths: temp_image_paths.join(","),
-            c_id: login_info.c_id
+            c_id: login_info.c_id,
+            province: province,
+            city: city
         }
         var posting = $.post(api_base_url + "register_shop", args);
         posting.done(function (data) {

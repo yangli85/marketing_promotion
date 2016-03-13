@@ -21,9 +21,10 @@
 
             <div class="col-sm-9">
                 <select class="form-control" id="user_type">
-                    <option value="user">全部用户</option>
-                    <option value="customer">普通客户</option>
-                    <option value="designer">设计师</option>
+                    <option value="user">地推客户</option>
+                    <option value="customer">普通用户</option>
+                    <option value="designer">未开通会员设计师</option>
+                    <option value="vip_designer">开通会员设计师</option>
                 </select>
             </div>
         </div>
@@ -67,8 +68,10 @@
     function user_list(current_page, page_size, user_type) {
         if (user_type.trim() == "designer")
             url = api_base_url + "designers";
-        else if(user_type.trim() =='customer')
+        else if (user_type.trim() == 'customer')
             url = api_base_url + 'users';
+        else if (user_type.trim() == 'vip_designer')
+            url = api_base_url + 'vip_designers'
         else
             url = api_base_url + 'promotion_logs';
         $.ajax({
