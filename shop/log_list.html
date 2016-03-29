@@ -60,7 +60,7 @@
     });
     function log_list(id, current_page) {
         $.ajax({
-            url: api_base_url + "shop_all_promotion_logs",
+            url: api_base_url + "commissioner/shop_all_promotion_logs",
             data: {shop_id: id, current_page: current_page, page_size: 10},
             dataType: 'jsonp',
             async: false,

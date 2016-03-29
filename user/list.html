@@ -73,7 +73,7 @@
         else if (user_type.trim() == 'vip_designer')
             url = api_base_url + 'vip_designers'
         else
-            url = api_base_url + 'promotion_logs';
+            url = api_base_url + 'commissioner/promotion_logs';
         $.ajax({
             url: url,
             data: {c_id: login_info.c_id, current_page: current_page, page_size: page_size},

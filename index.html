@@ -50,7 +50,7 @@
     }
     function render_details(c_id) {
         $.ajax({
-            url: api_base_url + "comissioner_details",
+            url: api_base_url + "commissioner/details",
             data: {c_id: c_id},
             dataType: 'jsonp',
             success: function (data) {

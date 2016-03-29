@@ -61,7 +61,7 @@
             c_id: login_info.c_id,
             mobile_type: mobile_type
         }
-        var posting = $.post(api_base_url + "add_promotion_log", args);
+        var posting = $.post(api_base_url + "commissioner/add_promotion_log", args);
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 window.location.href = base_url + "success.html";

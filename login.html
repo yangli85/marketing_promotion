@@ -11,9 +11,9 @@
     <link href="./css/common.css" rel="stylesheet">
 </head>
 <body>
-<div id="athena-login">
+<div id="athena-login" style="-webkit-filter: blur(5px); filter: blur(5px)">
     <div class="header">
-        <image class="logo" src="./images/logo.png"/>
+        <image class="logo"  src="./images/logo.png"/>
         <div class="title">美丽秀</div>
     </div>
     <div class="error-message">
@@ -55,7 +55,7 @@
 
     function login(phone_number, password) {
         $.ajax({
-            url: api_base_url + "commissioner_login",
+            url: api_base_url + "commissioner/login",
             data: {phone_number: phone_number, password: password},
             dataType: 'jsonp',
             success: function (data) {

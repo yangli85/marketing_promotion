@@ -64,9 +64,9 @@
 
     function shop_list(current_page, page_size, query) {
         if (query.trim())
-            url = api_base_url + "search_pagination_shops";
+            url = api_base_url + "commissioner/search_pagination_shops";
         else
-            url = api_base_url + 'shops';
+            url = api_base_url + 'commissioner/shops';
         $.ajax({
             url: url,
             data: {query: query, current_page: current_page, page_size: page_size, order_by: 'created_at'},

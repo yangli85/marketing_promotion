@@ -115,7 +115,7 @@
     }
     function register(user_name, phone_number, password, sms_code) {
         $.ajax({
-            url: api_base_url + "register",
+            url: api_base_url + "commissioner/register",
             data: {phone_number: phone_number, name: user_name, password: password, code: sms_code},
             dataType: 'jsonp',
             success: function (data) {

@@ -56,7 +56,7 @@
     });
     function add_log(id, content) {
         args = {shop_id: id, content: content, c_id: login_info.c_id}
-        var posting = $.post(api_base_url + "add_shop_promotion_log", args);
+        var posting = $.post(api_base_url + "commissioner/add_shop_promotion_log", args);
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 window.location.href = base_url + "shop/log_list.html?id=" + id + "&shop_name=" + $("#name").val();

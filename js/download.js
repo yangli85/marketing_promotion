@@ -1,39 +1,34 @@
-function DownLoadUrl(c_id, plat_form) {
-    this.c_id = c_id;
-    this.default_url = "default url";
-    this.plat_form = plat_form;
-    this.iphone_url = "iphone download url";
-    this.ipad_url = "ipad download url";
-    this.android_url = function () {
-        switch (c_id) {
-            case 'baidu_c_id':
-                return '你的APP：baidu定制版';
-            case 'google_c_id':
-                return '你的APP：google定制版';
-            case 'c_id':
-                return '你的APP：google定制版';
-            default:
-                return default_url
-        }
-    }
-    this.download_url = function () {
-        if (plat_from.android)
-            android_url;
-        else if (plat_form.iphone)
-            iphone_url;
-        else if (plat_form.ipad)
-            ipad_url;
-        else
-            default_url;
-    }
+function plat_form() {
+    var u = navigator.userAgent, app = navigator.appVersion;
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1)
+        return "androd"
+    else if (u.indexOf('iPhone') > -1)
+        return "iphone"
+    else if (u.indexOf('iPad') > -1)
+        return "ipad"
+    else
+        return "unknow"
+}
+function download_url(plat_form) {
+    if (plat_form == "android")
+        return "android_url";
+    else if (plat_form == "iphone")
+        return "iphone_url";
+    else if (plat_form == "ipad")
+        return "ipad_url";
+    else
+        return "default_url"
 }
 
-function download_state(c_id, mobile_type) {
-    $.ajax({
-        type: "POST",
-        url: "http://101.200.162.121:8080/add_promotion_log",
-        data: {c_id: c_id, mobile_type: mobile_type},
-        dataType: 'json'
+function download_state(c_id, mobile_type, href) {
+    var args = {
+        c_id: c_id,
+        mobile_type: mobile_type,
+        source: "share"
+    }
+    var posting = $.post(api_base_url + "add_promotion_log", args);
+    posting.done(function (data) {
+        location.href = href;
     });
 }
 

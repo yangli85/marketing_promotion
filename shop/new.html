@@ -274,7 +274,7 @@
             province: province,
             city: city
         }
-        var posting = $.post(api_base_url + "register_shop", args);
+        var posting = $.post(api_base_url + "commissioner/register_shop", args);
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 window.location.href = base_url + "success.html";
