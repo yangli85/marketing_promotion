@@ -73,12 +73,12 @@
         window.location.href = 'mydesigners://twitter?id=' + id;
         window.setTimeout(function () {
             window.location.href += '&refresh=1' // 附加一个特殊参数，用来标识这次刷新不要再调用myapp:// 了
-        }, 500);
+        }, 5000);
     }
     function twitter_details(id) {
         $.ajax({
             url: api_base_url + "search_twitter",
-            data: {twitter_id: id, source: "share"},
+            data: {twitter_id: id},
             dataType: 'jsonp',
             async: false,
             success: function (data) {
