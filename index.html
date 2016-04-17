@@ -21,7 +21,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#athena-menu").load(base_url + "menu.html")
+        $("#athena-menu").load(base_url + "menu.html");
         render_details(login_info.c_id);
     });
 
@@ -41,9 +41,9 @@
                 "</span>个人因为你,成为我们的用户!</p>" +
                 "<p>其中有<span style='font-size: 30px; color: #ad0358;'>" +
                 data['designer_count'] +
-                "</span>个设计师,这些设计师中有" +
+                "</span>个设计师,这些设计师中有<span style='font-size: 30px; color: #ad0358;'>" +
                 data['vip_designer_count'] +
-                "个开通了我们的会员!</p>" +
+                "</span>个开通了我们的会员!</p>" +
                 "<p><image class='img-responsive' src=" +
                 image_base_url + data['code_image'] +
                 "></image></p></div>")

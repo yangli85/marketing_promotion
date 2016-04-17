@@ -22,10 +22,9 @@ function download_url(plat_form) {
 
 function download_state(c_id, mobile_type, href) {
     var args = {
-        c_id: c_id,
-        mobile_type: mobile_type
+        c_id: c_id
     }
-    var posting = $.post(api_base_url + "commissioner/add_promotion_log", args);
+    var posting = $.post(api_base_url + "commissioner/update_be_scanned_times", args);
     posting.done(function (data) {
         location.href = href;
     });

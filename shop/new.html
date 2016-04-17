@@ -250,7 +250,7 @@
     }
 
     function upload_file(base64, temp_image_paths) {
-        var posting = $.post(api_base_url + "upload_image", {image_base64: base64});
+        var posting = $.post(api_base_url + "commissioner/upload_image", {image_base64: base64});
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 temp_image_paths[temp_image_paths.length] = data['data']['temp_image_path'];

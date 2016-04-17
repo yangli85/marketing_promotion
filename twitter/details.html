@@ -66,15 +66,27 @@
         })
     })
     function openApp(id) {
-        var isrefresh = getParameterByName('refresh'); // 获得refresh参数
-        if (isrefresh == 1) {
-            return
+        if (!isWeiXin()) {
+            var isrefresh = getParameterByName('refresh'); // 获得refresh参数
+            if (isrefresh == 1) {
+                return
+            }
+            window.location.href = 'mydesigners://twitter?id=' + id;
+            window.setTimeout(function () {
+                window.location.href += '&refresh=1' // 附加一个特殊参数，用来标识这次刷新不要再调用myapp:// 了
+            }, 5000);
         }
-        window.location.href = 'mydesigners://twitter?id=' + id;
-        window.setTimeout(function () {
-            window.location.href += '&refresh=1' // 附加一个特殊参数，用来标识这次刷新不要再调用myapp:// 了
-        }, 5000);
     }
+
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function twitter_details(id) {
         $.ajax({
             url: api_base_url + "search_twitter",
