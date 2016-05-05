@@ -60,22 +60,12 @@
     width:100%;
 }
 .download{
-    display:flex;
     background-color:#303030;
     position:fixed;
     left:0;
     bottom:0;
     height:80px;
     width:100%;
-}
-.download .logo{
-    flex:1;
-}
-.download .text{
-    flex:2;
-}
-.download .btn{
-    flex:1;
 }
 .download .logo img{
     width:70px;

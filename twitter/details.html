@@ -19,7 +19,7 @@
     <div class="error-message"></div>
     <div class="row">
         <div class="col-xs-8">
-            <image src="../images/logo.png" class="img-circle author-avatar"/>
+            <image src="../images/avatar.png" class="img-circle author-avatar"/>
             <span class="author-name"></span>
         </div>
         <div class="col-xs-4 time">
@@ -41,7 +41,7 @@
         </div>
         <div class="col-xs-4 designer">
             <span>设计师</span>
-            <image src="" class="img-circle designer-avatar"/>
+            <image src="../images/avatar.png" class="img-circle designer-avatar"/>
         </div>
     </div>
 </div>
@@ -113,7 +113,7 @@
     }
     function render_twitter_details(data) {
         author = data["author"]
-        if (author['avatar'] != null) {
+        if (author['avatar'] != null && author['avatar']['s_url'] != null) {
             $(".author-avatar").attr("src", image_base_url + author['avatar']['s_url']);
         }
         $(".author-name").html(author['name']);
@@ -128,7 +128,7 @@
         })
 
         $(".likes span").html(data['likes']);
-        if (data['designer']['avatar'] != null) {
+        if (data['designer']['avatar'] != null && data['designer']['avatar']['s_url'] != null) {
             $(".designer-avatar").attr("src", image_base_url + data['designer']['avatar']['s_url']);
         }
     }
