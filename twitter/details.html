@@ -10,11 +10,11 @@
     <link href="../bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/details.css" rel="stylesheet">
     <link href="../css/common.css" rel="stylesheet">
+    <div id='wx_pic' style='margin:0 auto;display:none;'>
+        <img src='../images/300.png' />
+    </div>
 </head>
 <body>
-<div id='wx_pic' style='margin:0 auto;display:none;'>
-    <img src='images/logo.png' />
-</div>
 <div class="header">
     我的动态
 </div>
@@ -65,7 +65,8 @@
         openApp(id);
         twitter_details(id);
         $('.footer').click(function () {
-            window.location.href = base_url + "download.html";
+            url = base_url + "download.html"
+            window.location.href = "http://mp.weixin.qq.com/mp/redirect?url=" + url
         })
     })
     function openApp(id) {
