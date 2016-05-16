@@ -29,6 +29,7 @@ body{
     margin-bottom:3%;
 }
 .author-avatar{
+    border: 1px solid #D6D2D2;
     width:20%;
     max-width:70px;
     margin-right:5%;
@@ -54,6 +55,7 @@ body{
     float:right;
 }
 .designer-avatar{
+    border: 1px solid #D6D2D2;
     max-width:50px;
     margin-left:5%;
     width:30%;
@@ -64,7 +66,7 @@ body{
 .twitter-image img{
     width:90%;
 }
-.download{
+.footer{
     z-index: 100;
     background-color: #303030;
     height: 80px;
@@ -72,25 +74,25 @@ body{
     position: fixed;
     bottom: 0;
 }
-.download .logo {
+.footer .logo {
     float:left;
     width:80px;
 }
-.download .logo img{
+.footer .logo img{
     width:70px;
     margin:5px 10px;
 }
 
-.download .text{
+.footer .text{
     float:left;
-    margin:25px 30px;
+    margin:20px;
 }
-.download .text .app-name{
+.footer .text .app-name{
     display:block;
     color:white;
     font-size:1.2em;
 }
-.download .text .ad{
+.footer .text .ad{
     color:#999999;
     font-size:1em;
 }
