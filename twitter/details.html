@@ -45,7 +45,6 @@
         </div>
     </div>
 </div>
-<div class="blank"></div>
 <div class="download">
     <div class="logo">
         <image src="../images/logo.png"></image>
@@ -58,6 +57,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        height = $(window).height()-153;
+        $(".content").css("height",height);
         id = getParameterByName("id");
         openApp(id);
         twitter_details(id);
