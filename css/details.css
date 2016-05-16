@@ -1,3 +1,6 @@
+body{
+    max-width:750px;
+}
 .header {
     font-style: normal;
     font-size: 1.5em;
@@ -9,6 +12,10 @@
 }
 .content{
     color: #333333;
+}
+.blank {
+    width:100%;
+    height:80px;
 }
 
 .row{
@@ -58,9 +65,12 @@
     width:90%;
 }
 .download{
-    background-color:#303030;
-    height:80px;
-    width:100%;
+    z-index: 100;
+    background-color: #303030;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 .download .logo {
     float:left;

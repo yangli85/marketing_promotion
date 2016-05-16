@@ -12,6 +12,9 @@
     <link href="../css/common.css" rel="stylesheet">
 </head>
 <body>
+<div id='wx_pic' style='margin:0 auto;display:none;'>
+    <img src='images/logo.png' />
+</div>
 <div class="header">
     我的动态
 </div>
@@ -45,6 +48,7 @@
         </div>
     </div>
 </div>
+<div class="blank"></div>
 <div class="download">
     <div class="logo">
         <image src="../images/logo.png"></image>
@@ -57,8 +61,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        height = $(window).height()-153;
-        $(".content").css("height",height);
         id = getParameterByName("id");
         openApp(id);
         twitter_details(id);
