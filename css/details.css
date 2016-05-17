@@ -1,8 +1,4 @@
-div{
-    max-width:750px;
-}
 .header {
-    margin:0 auto;
     font-style: normal;
     font-size: 1.5em;
     line-height: 3em;
@@ -13,7 +9,6 @@ div{
 }
 .content{
     color: #333333;
-    margin:0 auto;
 }
 .blank {
     width:100%;
@@ -69,14 +64,11 @@ div{
     width:90%;
 }
 .footer{
-    z-index: 100;
     background-color: #303030;
     height: 80px;
     width: 100%;
     position: fixed;
     bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
 }
 .footer .logo {
     float:left;
@@ -92,7 +84,6 @@ div{
     margin:20px;
 }
 .footer .text .app-name{
-    display:block;
     color:white;
     font-size:1.2em;
 }

@@ -1,7 +1,7 @@
 function plat_form() {
     var u = navigator.userAgent, app = navigator.appVersion;
     if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1)
-        return "androd"
+        return "android"
     else if (u.indexOf('iPhone') > -1)
         return "iphone"
     else if (u.indexOf('iPad') > -1)
@@ -10,12 +10,10 @@ function plat_form() {
         return "unknow"
 }
 function download_url(plat_form) {
-    var android_url = "http://101.201.79.44/marketing_promotion/apk/my_designers.apk"
-    var iphone_url = "https://itunes.apple.com/cn/app/wo-de-she-ji-shi/id1100090041?mt=8"
     if (plat_form == "android")
-        return android_url;
+        return "http://101.201.79.44/marketing_promotion/apk/my_designers.apk";
     else if (plat_form == "iphone")
-        return iphone_url;
+        return "https://itunes.apple.com/cn/app/wo-de-she-ji-shi/id1100090041?mt=8";
     else if (plat_form == "ipad")
         return false;
     else
