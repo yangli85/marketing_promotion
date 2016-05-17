@@ -47,22 +47,25 @@
 </div>
 <div class="blank"></div>
 <div class="footer">
-    <a href="../download.html">
-        <div class="logo">
-            <image src="../images/logo.png"></image>
-        </div>
-        <div class="text">
-            <span class="app-name">我的设计师</span>
-            <span class="ad">下载安装,查看更多精彩</span>
-        </div>
-    </a>
+    <div class="logo">
+        <image src="../images/logo.png"></image>
+    </div>
+    <div class="text">
+        <span class="app-name">我的设计师</span>
+        <span class="ad">点击下载,查看更多精彩</span>
+    </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
         id = getParameterByName("id");
-        openApp(id);
         twitter_details(id);
+        $(".content").click(function () {
+            openApp(id);
+        })
+        $(".footer").click(function () {
+            window.location.href = base_url + "state.html";
+        })
     })
     function openApp(id) {
         if (!isWeiXin()) {
@@ -73,7 +76,9 @@
             window.location.href = 'mydesigners://twitter?id=' + id;
             window.setTimeout(function () {
                 window.location.href += '&refresh=1' // 附加一个特殊参数，用来标识这次刷新不要再调用myapp:// 了
-            }, 5000);
+            }, 500);
+        } else {
+            alert("点击右上角,选择其他浏览器打开");
         }
     }
 
