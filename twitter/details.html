@@ -60,9 +60,7 @@
     $(document).ready(function () {
         id = getParameterByName("id");
         twitter_details(id);
-        $(".content").click(function () {
-            openApp(id);
-        })
+        openApp(id);
         $(".footer").click(function () {
             window.location.href = base_url + "state.html";
         })
@@ -76,7 +74,7 @@
             window.location.href = 'mydesigners://twitter?id=' + id;
             window.setTimeout(function () {
                 window.location.href += '&refresh=1' // 附加一个特殊参数，用来标识这次刷新不要再调用myapp:// 了
-            }, 500);
+            }, 5000);
         } else {
             alert("点击右上角,选择其他浏览器打开");
         }
