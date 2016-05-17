@@ -17,7 +17,11 @@
         source = request['source'];
         plat_form = plat_form();
         href = download_url(plat_form);
-        download_state(c_id, plat_form, href);
+        if (href != false) {
+            download_state(c_id, plat_form, href);
+        } else {
+            alert("对不起,目前我们只支持ios手机和android手机,暂时不支持其他类型的设备!");
+        }
     })
 </script>
 </body>

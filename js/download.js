@@ -10,14 +10,16 @@ function plat_form() {
         return "unknow"
 }
 function download_url(plat_form) {
+    var android_url = "http://101.201.79.44/marketing_promotion/apk/my_designers.apk"
+    var iphone_url = "https://itunes.apple.com/cn/app/wo-de-she-ji-shi/id1100090041?mt=8"
     if (plat_form == "android")
-        return "android_url";
+        return android_url;
     else if (plat_form == "iphone")
-        return "iphone_url";
+        return iphone_url;
     else if (plat_form == "ipad")
-        return "ipad_url";
+        return false;
     else
-        return "default_url"
+        return false
 }
 
 function download_state(c_id, mobile_type, href) {
