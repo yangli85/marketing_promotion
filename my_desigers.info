@@ -2,8 +2,8 @@
     "versionCode":1,
     "versionName":"V1.0",
     "releaseDate":"2016-04-13",
-    "changelog":"1、改进1\r\n2、改进2\r\n3、改进3\r\n",
-    "downloadUrl":"http://xxx/xxx.apk",
+    "changelog":"初始版本",
+    "downloadUrl":"http://101.201.79.44/marketing_promotion/apk/my_designers.apk",
     "packageName":"com.lofty.beautyshow",
     "versionType":"",
     "forceUpdate":"false"
