@@ -10,9 +10,6 @@
     <link href="../bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/details.css" rel="stylesheet">
     <link href="../css/common.css" rel="stylesheet">
-    <div id='wx_pic' style='margin:0 auto;display:none;'>
-        <img src='../images/300.png' />
-    </div>
 </head>
 <body>
 <div class="header">
@@ -50,13 +47,15 @@
 </div>
 <div class="blank"></div>
 <div class="footer">
-    <div class="logo">
-        <image src="../images/logo.png"></image>
-    </div>
-    <div class="text">
-        <span class="app-name">我的设计师</span>
-        <span class="ad">下载安装,查看更多精彩</span>
-    </div>
+    <a href="../download.html">
+        <div class="logo">
+            <image src="../images/logo.png"></image>
+        </div>
+        <div class="text">
+            <span class="app-name">我的设计师</span>
+            <span class="ad">下载安装,查看更多精彩</span>
+        </div>
+    </a>
 </div>
 
 <script type="text/javascript">
@@ -64,10 +63,6 @@
         id = getParameterByName("id");
         openApp(id);
         twitter_details(id);
-        $('.footer').click(function () {
-            url = base_url + "download.html"
-            window.location.href = "http://mp.weixin.qq.com/mp/redirect?url=" + url
-        })
     })
     function openApp(id) {
         if (!isWeiXin()) {

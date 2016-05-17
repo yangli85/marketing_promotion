@@ -1,7 +1,8 @@
-body{
+div{
     max-width:750px;
 }
 .header {
+    margin:0 auto;
     font-style: normal;
     font-size: 1.5em;
     line-height: 3em;
@@ -12,6 +13,7 @@ body{
 }
 .content{
     color: #333333;
+    margin:0 auto;
 }
 .blank {
     width:100%;
@@ -73,6 +75,8 @@ body{
     width: 100%;
     position: fixed;
     bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 .footer .logo {
     float:left;
