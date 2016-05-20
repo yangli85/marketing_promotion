@@ -93,3 +93,20 @@
     color:#999999;
     font-size:1em;
 }
+.over-lay{
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    opacity: 0.7;
+    width: 90%;
+    background-color: #0A090A;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 100; /* keep on top of other elements on the page */
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.2);
+}
+.over-lay img{
+    width:95%;
+    margin:15% 0;
+}

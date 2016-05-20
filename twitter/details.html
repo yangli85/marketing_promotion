@@ -55,7 +55,9 @@
         <span class="ad">点击下载,查看更多精彩</span>
     </div>
 </div>
-
+<div class="over-lay">
+    <image src="../images/modal.png">
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         id = getParameterByName("id");
@@ -64,6 +66,12 @@
         $(".footer").click(function () {
             window.location.href = base_url + "state.html";
         })
+        if (isWeiXin()) {
+            $(".over-lay").show();
+            $(".over-lay").click(function () {
+                $(".over-lay").fadeOut("slow");
+            })
+        }
     })
     function openApp(id) {
         if (!isWeiXin()) {
@@ -88,6 +96,7 @@
             return false;
         }
     }
+
 
     function twitter_details(id) {
         $.ajax({
