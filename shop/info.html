@@ -15,7 +15,6 @@
 <body>
 <div id="athena-menu"></div>
 <div id="athena-body">
-    <div class='error-message'></div>
     <div class="form-horizontal" id="edit-shop-form">
         <div class="form-group">
             <label for="address" class="col-sm-2 control-label">地址</label>
@@ -98,8 +97,8 @@
                 <button class="btn btn-warning btn-block" id="shop_del_btn">删除</button>
             </div>
         </div>
-
     </div>
+    <div class='error-message'></div>
 </div>
 
 
@@ -138,7 +137,8 @@
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 window.location.href =  base_url + "success.html";
-            } else {
+            }
+            else {
                 $(".error-message").html(data['message']);
             }
         });
