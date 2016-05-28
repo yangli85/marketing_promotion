@@ -134,7 +134,7 @@
     }
 
     function delete_shop(id) {
-        var posting = $.post(api_base_url + "delete_shop", {shop_id: id, c_id: login_info.c_id});
+        var posting = $.post(api_base_url + "commissioner/delete_shop", {shop_id: id, c_id: login_info.c_id});
         posting.done(function (data) {
             if (data['status'] == "SUCCESS") {
                 window.location.href =  base_url + "success.html";
