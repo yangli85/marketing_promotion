@@ -67,11 +67,11 @@
 
     function user_list(current_page, page_size, user_type) {
         if (user_type.trim() == "designer")
-            url = api_base_url + "designers";
+            url = api_base_url + "commissioner/designers";
         else if (user_type.trim() == 'customer')
-            url = api_base_url + 'users';
+            url = api_base_url + 'commissioner/users';
         else if (user_type.trim() == 'vip_designer')
-            url = api_base_url + 'vip_designers'
+            url = api_base_url + 'commissioner/vip_designers'
         else
             url = api_base_url + 'commissioner/promotion_logs';
         $.ajax({
