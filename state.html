@@ -7,11 +7,34 @@
     <script type="text/javascript" src="./js/jquery.js"></script>
     <script type="text/javascript" src="./js/config.js"></script>
     <script type="text/javascript" src="./js/download.js"></script>
+    <style>
+        .over-lay {
+            display: none;
+            position: absolute;
+            top: 30%;
+            left: 5%;
+            opacity: 0.9;
+            width: 90%;
+            background-color: #0A090A;
+            text-align: center;
+            border-radius: 5px;
+            z-index: 100; /* keep on top of other elements on the page */
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
-
+<div class="over-lay">
+    <image src="./images/modal.png">
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
+        if (isWeiXin()) {
+            $(".over-lay").show();
+            $(".over-lay").click(function () {
+                $(".over-lay").fadeOut("slow");
+            })
+        }
         request = get_request();
         c_id = request['c_id'] == null ? 1 : request['c_id'];
         source = request['source'];
@@ -23,6 +46,14 @@
             alert("对不起,目前我们只支持ios手机和android手机,暂时不支持其他类型的设备!");
         }
     })
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
 </body>
 </html>
