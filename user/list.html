@@ -21,7 +21,9 @@
             <thead>
             <tr>
                 <th width="10%">No</th>
+                <th>名称</th>
                 <th>手机号码</th>
+                <th>店铺</th>
                 <th>录入时间</th>
             </tr>
             </thead>
@@ -82,7 +84,11 @@
             var item = $("<tr><th scope='row'>" +
                     (offset + index) +
                     "</th><td>" +
+                    value['name'] +
+                    "</td><td>" +
                     value['phone_number'] +
+                    "</td><td>" +
+                    value['shop_name'] +
                     "</td><td>" +
                     value['created_at'] +
                     "</td></tr>"
