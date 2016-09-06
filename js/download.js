@@ -11,7 +11,7 @@ function plat_form() {
 }
 function download_url(plat_form) {
     if (plat_form == "android")
-        return "http://101.201.79.44/marketing_promotion/apk/my_designers.apk";
+        return base_url + "apk/my_designers_1.apk";
     else if (plat_form == "iphone")
         return "https://itunes.apple.com/cn/app/wo-de-she-ji-shi/id1100090041?mt=8";
     else if (plat_form == "ipad")
